@@ -1,27 +1,21 @@
 package DDG::Spice::Trimet;
 
-# ABSTRACT: Write an abstract here
+# ABSTRACT: Trimet Spice returns arrival times to specified stops
 
 use DDG::Spice;
 
-# Caching - http://docs.duckduckhack.com/backend-reference/api-reference.html#caching
+spice to => 'http://developer.trimet.org/ws/V1/arrivals?locIDs=$1&appID=EEC2E165C636DB6E52C2B0084&json=true&callback={{callback}}';
+
 spice is_cached => 1;
-spice proxy_cache_valid => "200 1d"; # defaults to this automatically
+spice proxy_cache_valid => "418 1d";
 
-spice wrap_jsonp_callback => 0; # only enable for non-JSONP APIs (i.e. no &callback= parameter)
+spice wrap_jsonp_callback => 0;
 
-# API endpoint - http://docs.duckduckhack.com/walkthroughs/forum-lookup.html#api-endpoint
-spice to => 'http://example.com/search/$1';
+triggers any => 'trimet';
 
-# Triggers - https://duck.co/duckduckhack/spice_triggers
-triggers any => 'triggerword', 'trigger phrase';
-
-# Handle statement
 handle remainder => sub {
 
-    # Query is in $_ or @_, depending on the handle you chose...if you
-    # need to do something with it before returning
-    return \$_;
+    return $_ if $_;
 };
 
 1;

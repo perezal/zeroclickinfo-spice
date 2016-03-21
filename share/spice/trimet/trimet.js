@@ -2,37 +2,52 @@
     "use strict";
     env.ddg_spice_trimet = function(api_result) {
 
-        // Validate the response (customize for your Spice)
         if (!api_result || api_result.error) {
             return Spice.failed('trimet');
         }
-
-        // Render the response
+        
         Spice.add({
             id: "trimet",
-
-            // Customize these properties
-            name: "AnswerBar title",
-            data: api_result,
+            name: "TriMet",
+            data: api_result.resultSet.arrival,
             meta: {
-                sourceName: "Example.com",
+                primaryText: "Arrivals for " + api_result.resultSet.location[0].desc,
+                itemType: "Arrivals",
+                sourceName: "http://trimet.org",
                 sourceUrl: 'http://example.com/url/to/details/' + api_result.name
             },
             normalize: function(item) {
                 return {
-                    // customize as needed for your chosen template
-                    title: item.title,
-                    subtitle: item.subtitle,
-                    image: item.icon
+                    title: item.shortSign,
+                    subtitle: format_time(item.estimated, item.scheduled),
+                    description: format_time(item.estimated, item.scheduled),
+                    badge: "http://www.clipartsfree.net/vector/large/red_circle_Vector_Clipart.png"
                 };
             },
             templates: {
-                group: 'your-template-group',
+                group: 'icon',
+                //detail: basic_icon_detail,
+                //item_detail: false,
+                variants: {
+                    //tile: 'basic4',
+                },
                 options: {
-                    content: Spice.trimet.content,
+                    content: api_result.resultSet.arrival,
                     moreAt: true
                 }
             }
         });
     };
+    function format_time(estimated, scheduled) {
+        if (estimated) {
+            var estimated_array = estimated.split('T');
+            var estimated_time = estimated_array[1];
+            return estimated_time.substr(0, 5);
+        }
+        else if (scheduled) {
+            var scheduled_array = scheduled.split('T');
+            var scheduled_time = scheduled_array[1];
+            return scheduled_time.substr(0, 5);
+        }
+    }
 }(this));
