@@ -18,21 +18,25 @@
             },
             normalize: function(item) {
                 return {
+                    arrival_time: format_time(item.estimated, item.scheduled),
+                    arrives_in: countdown(item.estimated, item.scheduled),
+                    name: item.shortSign,
+                    status: item.locid,
                     title: item.shortSign,
                     subtitle: format_time(item.estimated, item.scheduled),
                     description: format_time(item.estimated, item.scheduled),
-                    badge: "http://www.clipartsfree.net/vector/large/red_circle_Vector_Clipart.png"
+                    title_content: item.fullSign
                 };
             },
             templates: {
-                group: 'icon',
-                //detail: basic_icon_detail,
+                group: 'text',
+                //detail: false,
                 //item_detail: false,
                 variants: {
-                    //tile: 'basic4',
+                    //tile: 'basic4'
                 },
                 options: {
-                    content: api_result.resultSet.arrival,
+                    content: Spice.trimet.train_item,
                     moreAt: true
                 }
             }
@@ -48,6 +52,19 @@
             var scheduled_array = scheduled.split('T');
             var scheduled_time = scheduled_array[1];
             return scheduled_time.substr(0, 5);
+        }
+    };
+    function countdown(estimated, scheduled) {
+        if (estimated) {
+            var arrival = format_time(estimated, scheduled);
+            var date = new Date();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var time = parseInt(arrival);
+            return time;
+        }
+        else if (scheduled) {
+            return format_time(estimated, scheduled);
         }
     }
 }(this));

@@ -1,4 +1,56 @@
-.zci--trimet {
+.zci--trimet .tile--trimet {
+    text-align: center;
+    width: 13em;
+}
 
+@media screen and (max-device-width: 640px) and (orientation: portrait){
+	.is-mobile .zci--trimet .tile--trimet {
+	    width: 48%;
+	}
+}
+
+.tile--trimet .trimet__time {
+    font-size: 2.3em;
+    font-weight: 300;
+}
+
+.tile--trimet .trimet__details {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.tile--trimet .trimet__status-sep {
+    height: 12px;
+}
+
+.tile--trimet .trimet__sep-line {
+    background-color: #e1e1e1;
+    height: 1px;
+    width: 30px;
+    margin-bottom: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.tile--trimet .trimet__status {
+    margin-top: 10px;
+    margin-bottom: 2px;
+}
+
+.tile--trimet .trimet__badge {
+    background-color: #60ae50;
+    height: 12px;
+    border-radius: 6px;
+    padding: 0 6px;
+    display: inline-block;
+}
+
+.tile--trimet .trimet__delayed {
+    background-color: #eea43e;
+}
+
+.tile--trimet .trimet__blueline {
+    background-color: #084c8d;
 }
 

@@ -1,0 +1,19 @@
+<div class="trimet__time text--primary">{{arrives_in}}</div>
+<div class="trimet__details">
+    {{#if cancelled}}N/A{{else}}Arrives {{arrival_time}}{{/if}}<br/>
+    {{transfers}}<br/>
+    <dive class="one-line">{{name}}</div>
+</div>
+<div class="trimet__status-sep">
+    <div class="trimet__sep-line"></div>
+    <div class="trimet__badge {{status_class}}"></div>
+    <div class="trimet__sep-line"></div>
+</div>
+<div class="trimet__status">
+    <div class="one-line">{{status}}</div>
+    {{#if platform}}
+        <div class="one-line">Platform {{platform}}</div>
+    {{else}}
+        <div class="one-line tx-clr--lt2">Platform N/A</div>
+    {{/if}}
+</div>
